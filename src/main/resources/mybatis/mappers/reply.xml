@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reply">
+    <insert id="register" parameterType="Reply">
+        insert into SPRINGREPLY(rno, bno, REPLYTEXT, email, nickname)
+        values (REPLYSEQ.nextval,#{bno},#{replytext},#{email},#{nickname})
+    </insert>
+    <select id="list" resultType="Reply" parameterType="java.lang.Integer">
+        select *
+        from springreply
+        where bno = #{bno}
+        order by regdate desc
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from SPRINGREPLY where RNO = #{rno}
+    </delete>
+    <update id="update" parameterType="Reply">
+        update SPRINGREPLY set REPLYTEXT = #{replytext}, regdate=sysdate where rno = #{rno}
+    </update>
+</mapper>
