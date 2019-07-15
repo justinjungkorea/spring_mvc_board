@@ -17,6 +17,13 @@ http://www.springframework.org/schema/context/spring-context-4.0.xsd">
         <property value="1234" name="password" />
     </bean>
 
+<!--    <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">-->
+<!--        <property value="oracle.jdbc.driver.OracleDriver" name="driverClassName" />-->
+<!--        <property value="jdbc:oracle:thin:@192.168.0.100:1521:xe" name="url" />-->
+<!--        <property value="user13" name="username" />-->
+<!--        <property value="user13" name="password" />-->
+<!--    </bean>-->
+
     <mybatis-spring:scan base-package="com.justin.mapper" />
 
     <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
