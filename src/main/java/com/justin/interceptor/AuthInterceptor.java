@@ -27,7 +27,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                 query = "?" + query;
             }
             request.getSession().setAttribute("dest", uri+query);
-            request.getSession().setAttribute("msg","로그인을 하서야 이용할 수 있는 서비스 입니다.");
+            request.getSession().setAttribute("msg","로그인을 해야 이용할 수 있는 서비스 입니다.");
             response.sendRedirect(contextPath + "/login");
 
             return false;

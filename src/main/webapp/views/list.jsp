@@ -46,10 +46,10 @@
 </aside>
     <div class="box">
         <div class="box-header with-border">
-            <c:if test="${msg == null}">
+            <c:if test="${msg != null}">
                 <h3 class="box-title" style="text-align: center">게시판 목록보기</h3>
             </c:if>
-            <c:if test="${msg != null}">
+            <c:if test="${msg == null}">
                 <h3 class="box-title">${msg}</h3>
             </c:if>
             <form class="form-inline" style="float:right; vertical-align: middle; margin-bottom: 10px">

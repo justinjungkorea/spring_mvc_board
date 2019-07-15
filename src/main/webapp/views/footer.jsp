@@ -16,7 +16,7 @@
             <div class="pull-right hidden-xs">
                 <b>Version</b> 1.0
             </div>
-            <strong>Copyright &copy; 2019 <a href="/">Spring MVC Board</a>.
+            <strong>Copyright &copy; 2019 <a href="/springMVCBoard/">Spring MVC Board</a>.
             </strong> All rights reserved.
         </footer>
         <script src="${pageContext.request.contextPath}/js/bootstrap.js" type="text/javascript"></script>

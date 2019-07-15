@@ -11,10 +11,10 @@ http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
     <!-- 데이터베이스 연동 시 필수 -->
     <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
-        <property value="oracle.jdbc.driver.OracleDriver" name="driverClassName" />
-        <property value="jdbc:oracle:thin:@192.168.0.100:1521:xe" name="url" />
-        <property value="user13" name="username" />
-        <property value="user13" name="password" />
+        <property value="com.mysql.jdbc.Driver" name="driverClassName" />
+        <property value="jdbc:mysql://58.225.16.196:3306/justin?useSSL=false&amp;serverTimezone=UTC" name="url" />
+        <property value="root" name="username" />
+        <property value="1234" name="password" />
     </bean>
 
     <mybatis-spring:scan base-package="com.justin.mapper" />
