@@ -22,4 +22,14 @@
         delete from SPRINGUSER
         where EMAIL = #{email}
     </delete>
+
+    <select id="allboard" resultType="java.util.HashMap">
+        select *
+        from springboard
+    </select>
+
+    <select id="all" resultType="java.util.HashMap">
+        select *
+        from springuser
+    </select>
 </mapper>

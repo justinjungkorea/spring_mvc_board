@@ -16,6 +16,12 @@ public class SpringUserDao {
     }
 
     public String nicknamecheck(String nickname){
+        System.out.println("slrdkd");
+        try {
+            System.out.println(sqlSession.selectOne("user.nicknamecheck", nickname).toString());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
         return sqlSession.selectOne("user.nicknamecheck",nickname);
     }
 
