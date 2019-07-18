@@ -105,10 +105,12 @@ public class SpringBoardServiceImpl implements SpringBoardService {
         Calendar calendar = Calendar.getInstance();
         Date today = new Date(calendar.getTimeInMillis());
         for(SpringBoard vo:list){
-            if(today.toString().equals(vo.getRegdate().substring(0,10))){
-                vo.setDispdate(vo.getRegdate().substring(11));
+            String regdate = vo.getRegdate();
+            vo.setTitle(vo.getTitle().trim());
+            if(today.toString().equals(regdate.substring(0,10))){
+                vo.setDispdate(regdate.substring(11));
             } else {
-                vo.setDispdate(vo.getRegdate().substring(0,10));
+                vo.setDispdate(regdate.substring(0,10));
             }
             vo.setReplycnt(boardDao.replycnt(vo.getBno()));
         }
@@ -118,7 +120,6 @@ public class SpringBoardServiceImpl implements SpringBoardService {
         pageMaker.setCriteria(criteria);
         pageMaker.setTotalCount(boardDao.totalCount(criteria));
         map.put("pageMaker", pageMaker);
-
         return map;
     }
 }

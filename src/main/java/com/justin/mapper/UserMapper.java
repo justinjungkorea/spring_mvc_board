@@ -1,7 +1,9 @@
 package com.justin.mapper;
 
 import com.justin.domain.*;
+import org.springframework.stereotype.*;
 
+@Repository
 public interface UserMapper {
     public String emailcheck(String email);
     public String nicknamecheck(String nickname);

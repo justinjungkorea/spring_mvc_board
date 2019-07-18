@@ -18,18 +18,20 @@ public class BoardTest {
     @Autowired
     private SpringUserService userService;
 
-    //@Autowired
-   // private SqlSession sqlSession;
+    @Autowired
+    private SpringBoardService boardService;
+
+    @Test
+    public void list(){
+    }
 
     @Test
     public void emailcheck(){
-        System.out.println(sqlSession.selectList("com.justin.mapper.UserMapper.all"));
         userService.emailcheck("jungdw0624@gmail.com");
     }
 
     @Test
     public void nicknamecheck(){
-        System.out.println(sqlSession.selectList("com.justin.mapper.UserMapper.allboard"));
         userService.nicknamecheck("justin");
     }
 

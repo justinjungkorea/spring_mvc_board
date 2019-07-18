@@ -1,35 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.justin.mapper.UserMapper">
+<mapper namespace="user">
     <select id="emailcheck" resultType="java.lang.String" parameterType="java.lang.String">
         select email from springuser where email = #{email}
     </select>
     <select id="nicknamecheck" resultType="java.lang.String" parameterType="java.lang.String">
-        select NICKNAME from springuser where NICKNAME = #{nickname}
+        select nickname from springuser where nickname = #{nickname}
     </select>
     <insert id="join" parameterType="com.justin.domain.SpringUser">
-        insert into SPRINGUSER(email, pw, nickname, image) values(#{email},#{pw},#{nickname},#{image})
+        insert into springuser(email, pw, nickname, image) values(#{email},#{pw},#{nickname},#{image})
     </insert>
     <select id="login" resultType="com.justin.domain.SpringUser" parameterType="java.lang.String">
-        select EMAIL, NICKNAME, IMAGE, PW from SPRINGUSER where EMAIL = #{email}
+        select email, nickname, image, pw from springuser where email = #{email}
     </select>
     <update id="update" parameterType="com.justin.domain.SpringUser">
-        update SPRINGUSER
+        update springuser
         set PW=#{pw}, nickname=#{nickname}, image=#{image}
         where email=#{email}
     </update>
     <delete id="leave" parameterType="java.lang.String">
-        delete from SPRINGUSER
-        where EMAIL = #{email}
+        delete from springuser
+        where email = #{email}
     </delete>
-
-    <select id="allboard" resultType="java.util.HashMap">
-        select *
-        from springboard
-    </select>
-
-    <select id="all" resultType="java.util.HashMap">
-        select *
-        from springuser
+    <select id="all" resultType="com.justin.domain.SpringUser">
+        select * from springuser
     </select>
 </mapper>

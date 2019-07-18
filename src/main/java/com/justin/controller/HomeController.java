@@ -173,8 +173,9 @@ public class HomeController {
     }
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public void list(@ModelAttribute("criteria") SearchCriteria criteria, Model model) throws Exception{
+    public String list(@ModelAttribute("criteria") SearchCriteria criteria, Model model) throws Exception{
         Map<String, Object> map = boardService.list(criteria);
         model.addAttribute("map",map);
+        return "list";
     }
 }

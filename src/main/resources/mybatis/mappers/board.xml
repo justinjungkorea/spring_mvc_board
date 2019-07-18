@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
     <insert id="register" parameterType="SpringBoard">
-        insert into SPRINGBOARD(bno, title, content, ip, email)
-        values (BOARDSEQ.nextval, #{title}, #{content}, #{ip}, #{email})
+        insert into springboard(title, content, ip, email)
+        values (#{title}, #{content}, #{ip}, #{email})
     </insert>
     <select id="detail" resultType="SpringBoard" parameterType="java.lang.Integer">
-        select BNO, title, content, u.EMAIL, ip, NICKNAME, REGDATE, UPDATEDATE
-        from SPRINGUSER u, SPRINGBOARD b
-        where u.EMAIL = b.EMAIL and b.BNO = #{bno}
+        select bno, title, content, u.email, ip, nickname, regdate, updatedate
+        from springuser u, springboard b
+        where u.email = b.email and b.bno = #{bno}
     </select>
     <update id="updateReadcnt" parameterType="java.lang.Integer">
         update springboard
@@ -17,8 +17,7 @@
     </update>
     <update id="update" parameterType="SpringBoard">
         update springboard
-        set title=#{title}, content=#{content},
-        ip=#{ip}, updatedate=sysdate
+        set title=#{title}, content=#{content}, ip=#{ip}, updatedate=sysdate
         where bno = #{bno}
     </update>
     <delete id="delete" parameterType="java.lang.Integer">
@@ -26,36 +25,40 @@
         where bno = #{bno}
     </delete>
     <select id="totalCount" resultType="java.lang.Integer">
-        select count(*) from SPRINGBOARD, SPRINGUSER
+        select count(*) from springboard, springuser
         <include refid="search" />
     </select>
     <select id="list" resultType="SpringBoard" parameterType="SearchCriteria">
-        select bno, TITLE, EMAIL, NICKNAME, REGDATE, READCNT
-        from (
-            select rownum rnum, BNO, TITLE, CONTENT, EMAIL, REGDATE, READCNT, NICKNAME
-            from (
-                select rownum, BNO, TITLE, CONTENT, SPRINGBOARD.EMAIL, REGDATE, READCNT, NICKNAME
-                from SPRINGBOARD, SPRINGUSER
+        with table2
+        as (
+            with table1
+            as (
+                select row_number() over ( order by regdate desc )as rnum, bno, title, content, springboard.email, regdate, readcnt, nickname
+                from springboard join springuser
                 <include refid="search" />
-                order by REGDATE desc
             )
+            select rnum, bno, title, content, email, regdate, readcnt, nickname
+            from table1
         )
+        select bno, title, email, nickname, regdate, readcnt
+        from
+            table2
         where rnum &lt;= #{pageStart} + #{perPageNum} - 1 and rnum &gt;= #{pageStart}
     </select>
     <select id="replycnt" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-        select count(*) from SPRINGREPLY where BNO=#{bno}
+        select count(*) from springreply where bno=#{bno}
     </select>
     <sql id="search">
         <if test="searchType!=null">
-            <if test="searchType == ''.toString()"> where SPRINGBOARD.email = SPRINGUSER.email </if>
-            <if test="searchType == 't'.toString()"> where SPRINGBOARD.email = SPRINGUSER.email and title like '%' || #{keyword} || '%' </if>
-            <if test="searchType == 'c'.toString()"> where SPRINGBOARD.email = SPRINGUSER.email and content like '%' || #{keyword} || '%' </if>
-            <if test="searchType == 'w'.toString()"> where SPRINGBOARD.email = SPRINGUSER.email and springuser.nickname like '%' || #{keyword} || '%' </if>
-            <if test="searchType == 'tc'.toString()"> where SPRINGBOARD.email = SPRINGUSER.email and (title like '%' || #{keyword} || '%' OR content like '%' || #{keyword} || '%' )</if>
-            <if test="searchType == 'cw'.toString()"> where SPRINGBOARD.email = SPRINGUSER.email and (content like '%' || #{keyword} || '%' OR springuser.nickname like '%' || #{keyword} || '%' )</if>
+            <if test="searchType == ''.toString()"> </if>
+            <if test="searchType == 't'.toString()"> and title like '%' || #{keyword} || '%' </if>
+            <if test="searchType == 'c'.toString()"> and content like '%' || #{keyword} || '%' </if>
+            <if test="searchType == 'w'.toString()"> and springuser.nickname like '%' || #{keyword} || '%' </if>
+            <if test="searchType == 'tc'.toString()"> and (title like '%' || #{keyword} || '%' OR content like '%' || #{keyword} || '%' )</if>
+            <if test="searchType == 'cw'.toString()"> and (content like '%' || #{keyword} || '%' OR springuser.nickname like '%' || #{keyword} || '%' )</if>
         </if>
         <if test="searchType == null">
-            where SPRINGBOARD.email = SPRINGUSER.email
+            where springboard.email = springuser.email
         </if>
     </sql>
 </mapper>

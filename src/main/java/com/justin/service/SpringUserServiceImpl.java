@@ -10,7 +10,6 @@ import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
 
 import javax.servlet.http.*;
-import javax.swing.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -19,16 +18,18 @@ import java.util.*;
 public class SpringUserServiceImpl implements SpringUserService{
 
     @Autowired
-    private UserMapper userMapper;
+//    private UserMapper userDao;
+    private SpringUserDao userDao;
 
     @Override
     public String emailcheck(String email) {
-        return userMapper.emailcheck(email);
+        System.out.println(userDao.all().toString());
+        return userDao.emailcheck(email);
     }
 
     @Override
     public String nicknamecheck(String nickname) {
-        return userMapper.nicknamecheck(nickname);
+        return userDao.nicknamecheck(nickname);
     }
 
     @Override
@@ -59,7 +60,7 @@ public class SpringUserServiceImpl implements SpringUserService{
             user.setEmail(email);
             user.setPw(BCrypt.hashpw(pw, BCrypt.gensalt(10)));
             user.setNickname(nickname);
-            result = userMapper.join(user);
+            result = userDao.join(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -76,7 +77,7 @@ public class SpringUserServiceImpl implements SpringUserService{
         }
         String email = request.getParameter("email");
         String pw = request.getParameter("pw");
-        SpringUser loginUser = userMapper.login(email);
+        SpringUser loginUser = userDao.login(email);
 
         if(loginUser != null){
             if(BCrypt.checkpw(pw, loginUser.getPw())){
@@ -160,7 +161,7 @@ public class SpringUserServiceImpl implements SpringUserService{
             user.setEmail(email);
             user.setPw(BCrypt.hashpw(pw, BCrypt.gensalt(10)));
             user.setNickname(nickname);
-            result = userMapper.update(user);
+            result = userDao.update(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -175,7 +176,7 @@ public class SpringUserServiceImpl implements SpringUserService{
         String pw = request.getParameter("pw");
         HttpSession session = request.getSession();
         SpringUser user = (SpringUser)session.getAttribute("user");
-        SpringUser loginUser = userMapper.login(user.getEmail());
+        SpringUser loginUser = userDao.login(user.getEmail());
         if(loginUser != null){
             if(BCrypt.checkpw(pw,loginUser.getPw())){
                 loginUser.setPw(null);
@@ -184,7 +185,7 @@ public class SpringUserServiceImpl implements SpringUserService{
             }
         }
         if(loginUser != null){
-            result = userMapper.leave(user.getEmail());
+            result = userDao.leave(user.getEmail());
         }
 
         return result;
