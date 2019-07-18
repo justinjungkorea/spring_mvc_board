@@ -1,12 +1,10 @@
-## **Sping MVC Project**
+## **Sping MVC Project for login, board and so on...**
 
-You can just build Spring MVC Framework Project with Maven project.
+http://58.225.16.216:8080/springBoardProj
 
-1.Maven Project + Spring MVC Framework
+Spring MVC Project\
+Tomcat8 for WAS\
+IntelliJ for IDE\
+Mysql8 for DB\
+Server running on Ubuntu 16.04 LTS
 
-2.Maven Project with org.apache.maven.archetypes:maven-archetype-webapp
-
-3.Spring MVC Project
-
-##### **If you have problem with getiing libraries from those ways.**
-##### **You can just start with this templete.**

@@ -34,7 +34,7 @@
             with table1
             as (
                 select row_number() over ( order by regdate desc )as rnum, bno, title, content, springboard.email, regdate, readcnt, nickname
-                from springboard join springuser
+                from springboard, springuser
                 <include refid="search" />
             )
             select rnum, bno, title, content, email, regdate, readcnt, nickname
@@ -50,12 +50,12 @@
     </select>
     <sql id="search">
         <if test="searchType!=null">
-            <if test="searchType == ''.toString()"> </if>
-            <if test="searchType == 't'.toString()"> and title like '%' || #{keyword} || '%' </if>
-            <if test="searchType == 'c'.toString()"> and content like '%' || #{keyword} || '%' </if>
-            <if test="searchType == 'w'.toString()"> and springuser.nickname like '%' || #{keyword} || '%' </if>
-            <if test="searchType == 'tc'.toString()"> and (title like '%' || #{keyword} || '%' OR content like '%' || #{keyword} || '%' )</if>
-            <if test="searchType == 'cw'.toString()"> and (content like '%' || #{keyword} || '%' OR springuser.nickname like '%' || #{keyword} || '%' )</if>
+            <if test="searchType == ''.toString()"> where springboard.email = springuser.email </if>
+            <if test="searchType == 't'.toString()"> where springuser.email = springboard.email and title like '%' || #{keyword} || '%' </if>
+            <if test="searchType == 'c'.toString()"> where springuser.email = springboard.email and content like '%' || #{keyword} || '%' </if>
+            <if test="searchType == 'w'.toString()"> where springuser.email = springboard.email and springuser.nickname like '%' || #{keyword} || '%' </if>
+            <if test="searchType == 'tc'.toString()"> where springuser.email = springboard.email and (title like '%' || #{keyword} || '%' OR content like '%' || #{keyword} || '%' )</if>
+            <if test="searchType == 'cw'.toString()"> where springuser.email = springboard.email and (content like '%' || #{keyword} || '%' OR springuser.nickname like '%' || #{keyword} || '%' )</if>
         </if>
         <if test="searchType == null">
             where springboard.email = springuser.email
