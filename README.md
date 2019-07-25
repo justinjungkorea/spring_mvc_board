@@ -1,6 +1,6 @@
 ## **Sping MVC Project for login, board and so on...**
 
-http://58.225.16.216:8080/springBoardProj
+http://58.225.16.215:8080/springBoardProj
 
 Spring MVC Project\
 Tomcat8 for WAS\

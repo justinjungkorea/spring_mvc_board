@@ -12,7 +12,7 @@ http://www.springframework.org/schema/context/spring-context-4.0.xsd">
     <!-- 데이터베이스 연동 시 필수 -->
     <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
         <property value="com.mysql.jdbc.Driver" name="driverClassName" />
-        <property value="jdbc:mysql://58.225.16.216:3306/justin?useSSL=false&amp;serverTimezone=UTC" name="url" />
+        <property value="jdbc:mysql://58.225.16.215:3306/justin?useSSL=false&amp;serverTimezone=UTC" name="url" />
         <property value="root" name="username" />
         <property value="asdf1234" name="password" />
     </bean>
